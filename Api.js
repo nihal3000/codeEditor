@@ -16,12 +16,12 @@ app.post("/compile", function(req, res){
     var lang = req.body.lang;
     try{
         
-        if(lang = "C++"){
+        if(lang === "C++"){
             if(!input){
 
 
                 //if windows  
-                var envData = { OS : "windows" , cmd : "g++"}; // (uses g++ command to compile )
+                var envData = { OS : "windows" , cmd : "g++", options : {timeout : 10000}}; // (uses g++ command to compile )
                 //else
                 // var envData = { OS : "linux" , cmd : "gcc" }; // ( uses gcc command to compile )
                 compiler.compileCPP(envData , code , function (data) {
@@ -37,7 +37,7 @@ app.post("/compile", function(req, res){
 
              }
              else{
-                var envData = { OS : "windows" , cmd : "g++"}; // (uses g++ command to compile )
+                var envData = { OS : "windows" , cmd : "g++", options : {timeout : 10000}}; // (uses g++ command to compile )
                 //else
                 // var envData = { OS : "linux" , cmd : "gcc" }; // ( uses gcc command to compile )
                 compiler.compileCPPWithInput(envData , code , input , function (data) {
@@ -53,7 +53,7 @@ app.post("/compile", function(req, res){
     
     //res is the response object
         }
-        else if(lang = "Java"){
+        else if(lang === "Java"){
             if(!input){
                 var envData = { OS : "windows"}; 
                 //else
@@ -81,7 +81,7 @@ app.post("/compile", function(req, res){
                 });
             }
         }
-        else{
+        else if(lang === "Python"){
             if(!input){
                 var envData = { OS : "windows"}; 
                 //else
@@ -116,4 +116,4 @@ app.post("/compile", function(req, res){
 
 })
 
-app.listen(6500)
+app.listen(6600)

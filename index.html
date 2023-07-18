@@ -75,12 +75,21 @@ option.addEventListener("change",function(){
 })
 
 var code;
-run.addEventListener("click", function(){
+run.addEventListener("click", async function(){
   code={
     code: editor.getValue(),
     input: input.value,
     lang: option.value
   }
+  var oData = await fetch("http://localhost:6600/compile",{
+    method : "POST",
+    headers:{
+      "Content-Type" : "application/json"
+    },
+    body : JSON.stringify(code)
+  })
+  var d = await oData.json()
+  output.value = d.output
 })
 </script>
 <script src="Api.js"></script>
